@@ -14,6 +14,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Box, typography } from "@mui/system";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -42,24 +45,36 @@ const BlogCard = () => {
         image={null}
         alt={null}
       />
-      <CardContent>
-        <Typography
-          style={{ backgroundColor: "silver" }}
-          variant="body2"
-          color="text.secondary"
+      <CardContent sx={{ padding: 0, width: "350px", whiteSpace: "nowrap" }}>
+        <CardContent
+          sx={{
+            backgroundColor: "silver",
+          }}
         >
-          Lizard
-        </Typography>
-        <Typography style={{}} variant="body2" color="text.secondary">
-          email@email.com
-        </Typography>
+          <Typography variant="h5" component="div">
+            HEADER
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            Date
+          </Typography>
+          <Box sx={{ textOverflow: "ellipsis", overflow: "hidden" }}>
+            well meaning and kindly. bla bla bla bla bla uyyy aha
+          </Box>
+        </CardContent>
+        <CardContent>
+          <Typography sx={{ display: "flex", alignItems: "center" }}>
+            <AccountCircleIcon sx={{ marginRight: "0.5rem" }} /> ali@email.com
+          </Typography>
+        </CardContent>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
+          <Typography sx={{ marginLeft: "0.4rem" }}>61</Typography>
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon />
+          <ChatBubbleOutlineIcon />
+          <Typography sx={{ marginLeft: "0.4rem" }}>61</Typography>
         </IconButton>
       </CardActions>
     </Card>
