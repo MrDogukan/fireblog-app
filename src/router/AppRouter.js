@@ -1,8 +1,8 @@
-import { Login } from "@mui/icons-material";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Dashboard from "../pages/Dashboard";
+import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 const AppRouter = () => {
