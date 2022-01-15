@@ -13,6 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../helpers/firebase";
 import { Avatar } from "@mui/material";
+import logo from "../assets/logo.jpeg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -59,7 +60,12 @@ const Navbar = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <HomeOutlinedIcon onClick={() => navigate("/")} />
+            <img
+              src={logo}
+              alt="logo"
+              onClick={() => navigate("/")}
+              width={40}
+            />
           </IconButton>
           <Typography
             variant="h6"
@@ -67,7 +73,7 @@ const Navbar = () => {
             onClick={() => navigate("/")}
             sx={{ flexGrow: 1, textAlign: "center" }}
           >
-            Fire Blog
+            ------ Fire Blog App -------
           </Typography>
           <Box>
             {currentUser ? (
@@ -79,6 +85,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   onClick={handleMenu}
                   color="inherit"
+                  style={{ fontSize: "40px" }}
                 >
                   <Avatar sx={{ backgroundColor: "#fff", color: "#24292E" }}>
                     {currentUser.displayName
