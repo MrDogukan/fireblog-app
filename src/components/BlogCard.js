@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -17,6 +17,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Box, typography } from "@mui/system";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,14 +32,14 @@ const ExpandMore = styled((props) => {
 }));
 
 const BlogCard = () => {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{ curser: "pointer", maxWidth: 345 }}
+      onClick={() => (currentUser ? navigate("/details") : navigate("/"))}
+    >
       <CardMedia
         component="img"
         height="140"

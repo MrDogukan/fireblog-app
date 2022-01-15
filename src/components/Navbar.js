@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,11 +10,14 @@ import Menu from "@mui/material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../helpers/firebase";
+import { Avatar } from "@mui/material";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { currentUser } = React.useContext(AuthContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { currentUser } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,9 +42,9 @@ const Navbar = () => {
     setAnchorEl(null);
     navigate("/newblog");
   };
-  const handleOut = () => {
+  const handleOut = async () => {
     setAnchorEl(null);
-    // logout fonksiyonu konulacak
+    await signOut(auth);
     navigate("/");
   };
 
@@ -61,74 +64,85 @@ const Navbar = () => {
           <Typography
             variant="h6"
             component="div"
+            onClick={() => navigate("/")}
             sx={{ flexGrow: 1, textAlign: "center" }}
           >
             Fire Blog
           </Typography>
-          {currentUser ? (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleNew}>New</MenuItem>
-                <MenuItem onClick={handleOut}>Logout</MenuItem>
-              </Menu>
-            </div>
-          ) : (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleLogin}>Login</MenuItem>
-                <MenuItem onClick={handleRegister}>Register</MenuItem>
-              </Menu>
-            </div>
-          )}
+          <Box>
+            {currentUser ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <Avatar sx={{ backgroundColor: "#fff", color: "#24292E" }}>
+                    {currentUser.displayName
+                      ?.split(" ")
+                      .map((str) => str[0])
+                      .join("")
+                      .toUpperCase()}
+                  </Avatar>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                  <MenuItem onClick={handleNew}>New</MenuItem>
+                  <MenuItem onClick={handleOut}>Logout</MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <Avatar sx={{ backgroundColor: "#fff", color: "#24292E" }}>
+                    <AccountCircle />
+                  </Avatar>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleLogin}>Login</MenuItem>
+                  <MenuItem onClick={handleRegister}>Register</MenuItem>
+                </Menu>
+              </div>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
