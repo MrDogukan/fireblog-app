@@ -13,7 +13,7 @@ import { Formik, useFormik } from "formik";
 
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../helpers/firebase";
+import { addNewBlog, auth } from "../helpers/firebase";
 import { AuthContext } from "../context/AuthContext";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
 
@@ -29,22 +29,10 @@ const NewBlog = () => {
       content: "",
     },
 
-    // onSubmit: async (values) => {
-    //   // setLoading(true)
-    //   try {
-    //     let user = await signInWithEmailAndPassword(
-    //       auth,
-    //       values.email,
-    //       values.password
-    //     );
-    //     console.log(user);
-    //     navigate("/");
-    //   } catch (err) {
-    //     alert(err.message);
-    //   }
-    //   console.log(currentUser);
-    //   // setLoading(false)
-    // },
+    onSubmit: async (values) => {
+      addNewBlog(values);
+      navigate("/");
+    },
   });
 
   console.log(currentUser);
