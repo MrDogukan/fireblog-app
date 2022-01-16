@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyA7S8DTIgXh4isIal-o5DxDsrr2dZKisto",
   authDomain: "fire-blog-my.firebaseapp.com",
+  databaseURL: "https://fire-blog-my-default-rtdb.firebaseio.com",
   projectId: "fire-blog-my",
   storageBucket: "fire-blog-my.appspot.com",
   messagingSenderId: "642108357456",
